@@ -1,4 +1,5 @@
 plugins {
+    id "io.qameta.allure" version "2.9.6"
     id 'java'
 }
 
@@ -9,9 +10,52 @@ repositories {
     mavenCentral()
 }
 
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+allure {
+    version.set("2.17.3")
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.jetbrains:annotations:24.0.1'
+
+    // JUnit аннотации
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+    //RestAssure аннотации
+    implementation 'io.rest-assured:rest-assured:5.3.0'
+    implementation 'io.rest-assured:rest-assured-all:5.3.0'
+
+    //Allure аннотации
+    implementation 'io.qameta.allure:allure-rest-assured:2.21.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
+
+    //AssertJ аннотации
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+    //Lombok аннотации
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    //Faker аннотации
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    //Owner аннотации
+    implementation 'org.aeonbits.owner:owner:1.0.12'
+
+    //Jackson аннотации
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+
+    testImplementation("io.github.bonigarcia:webdrivermanager:5.3.2")
+
+    implementation group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.8.1'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '4.8.1'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-http-jdk-client', version: '4.8.1'
+
 }
 
 test {
