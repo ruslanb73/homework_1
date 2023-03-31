@@ -20,7 +20,8 @@ public class SortingClientsByNameTests extends BaseTest {
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", () -> {
             managerCustomerPage.firstNameButton();
             managerCustomerPage.firstNameButton();
-            managerCustomerPage.textFirstName();
+            System.out.println(managerCustomerPage.textFirstName());
+            Thread.sleep(50);
             assertSoftly(
                     softAssertions -> softAssertions
                             .assertThat(managerCustomerPage.textFirstName())
@@ -36,7 +37,7 @@ public class SortingClientsByNameTests extends BaseTest {
         Allure.step("Шаг 1. Нажать кнопку Customers", managerCustomerPage::customerButton);
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", managerCustomerPage::firstNameButton);
         managerCustomerPage.textFirstName();
-        Thread.sleep(50);
+        Thread.sleep(100);
         assertSoftly(
                 softAssertions -> softAssertions
                         .assertThat(managerCustomerPage.textFirstName())

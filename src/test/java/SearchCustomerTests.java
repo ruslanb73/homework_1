@@ -36,8 +36,8 @@ public class SearchCustomerTests extends BaseTest {
 
         Allure.step("Шаг 1. Нажать главную кнопку AddCustomer", managerCustomerPage::customerButton);
         Allure.step("Шаг 2. В поле Search Customers ввести фамилию существующего клиента", () -> {
-            Thread.sleep(50);
             managerCustomerPage.addSearch("Potter");
+            Thread.sleep(100);
             assertSoftly(
                     softAssertions -> softAssertions
                             .assertThat(managerCustomerPage.textLastName())
