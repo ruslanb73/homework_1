@@ -21,7 +21,6 @@ public class SortingClientsByNameTests extends BaseTest {
             managerCustomerPage.firstNameButton();
             managerCustomerPage.firstNameButton();
             System.out.println(managerCustomerPage.textFirstName());
-            Thread.sleep(50);
             assertSoftly(
                     softAssertions -> softAssertions
                             .assertThat(managerCustomerPage.textFirstName())
@@ -32,12 +31,10 @@ public class SortingClientsByNameTests extends BaseTest {
 
     @DisplayName("Сортировка клиентов на странице manager в порядке убывания")
     @Test
-    public void test2() throws InterruptedException {
+    public void test2(){
         ManagerCustomerPage managerCustomerPage = new ManagerCustomerPage(driver);
         Allure.step("Шаг 1. Нажать кнопку Customers", managerCustomerPage::customerButton);
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", managerCustomerPage::firstNameButton);
-        managerCustomerPage.textFirstName();
-        Thread.sleep(100);
         assertSoftly(
                 softAssertions -> softAssertions
                         .assertThat(managerCustomerPage.textFirstName())
