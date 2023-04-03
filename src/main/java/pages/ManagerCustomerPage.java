@@ -1,14 +1,13 @@
 package pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ManagerCustomerPage extends BasePage {
 
@@ -55,21 +54,26 @@ public class ManagerCustomerPage extends BasePage {
         search.sendKeys(name);
     }
 
-    @Step("Метод получения Имени в столбце First Name")
-    public String textFirstName() {
-        String firstName =  driver.findElement(By.xpath("//div/table/tbody/tr[1]/td[1]")).getText();
-        return firstName;
+    @FindBy(xpath = "//tr//td[1]")
+    private List<WebElement> firstNameList;
+
+    @Step("Получает список всех значений firstName")
+    public List<String> getLostCustomerAll() {
+        return firstNameList.stream()
+                .skip(1)
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 
-    @Step("Метод получения Фамилии в столбце Last Name")
-    public String textLastName() {
-        String lastName =  driver.findElement(By.xpath("//div/table/tbody/tr[1]/td[2]")).getText();
-        return lastName;
-    }
+    @FindBy(xpath = "//tr[1]/td")
+    private List<WebElement> firstLineList;
 
-    @Step("Метод получения индекса в столбце Product Code")
-    public String textProductCode() {
-        String productCode =  driver.findElement(By.xpath("//div/table/tbody/tr[1]/td[3]")).getText();
-        return productCode;
+
+    @Step("Получает строку из таблицы")
+    public List<String> getListCustomer() {
+        return firstLineList.stream()
+                .skip(5)
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }

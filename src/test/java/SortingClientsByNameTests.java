@@ -1,3 +1,5 @@
+import com.google.common.collect.Ordering;
+import dev.failsafe.internal.util.Assert;
 import io.qameta.allure.Allure;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,12 +22,8 @@ public class SortingClientsByNameTests extends BaseTest {
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", () -> {
             managerCustomerPage.firstNameButton();
             managerCustomerPage.firstNameButton();
-            String message = managerCustomerPage.textFirstName();
-            assertSoftly(
-                    softAssertions -> softAssertions
-                            .assertThat(message)
-                            .withFailMessage("Ошибка при сортировке данных ")
-                            .isEqualTo("Albus"));
+            Assert.isTrue(Ordering.natural()
+                    .isOrdered(managerCustomerPage.getLostCustomerAll()), "Ошибка при сортировке данных");
         });
     }
 
@@ -35,11 +33,8 @@ public class SortingClientsByNameTests extends BaseTest {
         ManagerCustomerPage managerCustomerPage = new ManagerCustomerPage(driver);
         Allure.step("Шаг 1. Нажать кнопку Customers", managerCustomerPage::customerButton);
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", managerCustomerPage::firstNameButton);
-        String message = managerCustomerPage.textFirstName();
-        assertSoftly(
-                softAssertions -> softAssertions
-                        .assertThat(message)
-                        .withFailMessage("Ошибка при сортировке данных ")
-                        .isEqualTo("Ron"));
+        Assert.isTrue(Ordering.natural()
+                .reverse()
+                .isOrdered(managerCustomerPage.getLostCustomerAll()), "Ошибка при сортировке данных");
     }
 }

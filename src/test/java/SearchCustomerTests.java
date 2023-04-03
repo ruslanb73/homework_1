@@ -1,3 +1,4 @@
+import dev.failsafe.internal.util.Assert;
 import io.qameta.allure.Allure;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,11 +23,7 @@ public class SearchCustomerTests extends BaseTest {
         Allure.step("Шаг 1. Нажать главную кнопку AddCustomer", managerCustomerPage::customerButton);
         Allure.step("Шаг 2. В поле Search Customers ввести имя существующего клиента", () -> {
             managerCustomerPage.addSearch("Ron");
-            assertSoftly(
-                    softAssertions -> softAssertions
-                            .assertThat(managerCustomerPage.textFirstName())
-                            .withFailMessage("Клиент не найден ")
-                            .isEqualTo("Ron"));
+            Assert.isTrue(managerCustomerPage.getListCustomer().contains("Ron"), "Клиент не найден");
         });
     }
 
@@ -38,12 +35,7 @@ public class SearchCustomerTests extends BaseTest {
         Allure.step("Шаг 1. Нажать главную кнопку AddCustomer", managerCustomerPage::customerButton);
         Allure.step("Шаг 2. В поле Search Customers ввести фамилию существующего клиента", () -> {
             managerCustomerPage.addSearch("Dumbledore");
-            String message = managerCustomerPage.textLastName();
-            assertSoftly(
-                    softAssertions -> softAssertions
-                            .assertThat(message)
-                            .withFailMessage("Клиент не найден ")
-                            .isEqualTo("Dumbledore"));
+            Assert.isTrue(managerCustomerPage.getListCustomer().contains("Dumbledore"), "Клиент не найден");
         });
     }
 
@@ -55,11 +47,7 @@ public class SearchCustomerTests extends BaseTest {
         Allure.step("Шаг 1. Нажать главную кнопку AddCustomer", managerCustomerPage::customerButton);
         Allure.step("Шаг 2. В поле Search Customers ввести индекс существующего клиента", () -> {
             managerCustomerPage.addSearch("E55555");
-            assertSoftly(
-                    softAssertions -> softAssertions
-                            .assertThat(managerCustomerPage.textProductCode())
-                            .withFailMessage("Клиент не найден ")
-                            .isEqualTo("E55555"));
+            Assert.isTrue(managerCustomerPage.getListCustomer().contains("E55555"), "Клиент не найден");
         });
     }
 
