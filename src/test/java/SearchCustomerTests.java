@@ -2,6 +2,7 @@ import io.qameta.allure.Allure;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.ResourceLock;
 import org.openqa.selenium.By;
 import pages.ManagerCustomerPage;
 
@@ -12,7 +13,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
  */
 @DisplayName("Поиск клиента")
 public class SearchCustomerTests extends BaseTest {
-
+    @ResourceLock("1")
     @DisplayName("Поиск клиента по имени")
     @Test
     public void searchCustomerByFirstNameTest() {
@@ -36,12 +37,13 @@ public class SearchCustomerTests extends BaseTest {
 
         Allure.step("Шаг 1. Нажать главную кнопку AddCustomer", managerCustomerPage::customerButton);
         Allure.step("Шаг 2. В поле Search Customers ввести фамилию существующего клиента", () -> {
-            managerCustomerPage.addSearch("Potter");
+            managerCustomerPage.addSearch("Dumbledore");
+            String message = managerCustomerPage.textLastName();
             assertSoftly(
                     softAssertions -> softAssertions
-                            .assertThat(managerCustomerPage.textLastName())
+                            .assertThat(message)
                             .withFailMessage("Клиент не найден ")
-                            .isEqualTo("Potter"));
+                            .isEqualTo("Dumbledore"));
         });
     }
 

@@ -20,10 +20,10 @@ public class SortingClientsByNameTests extends BaseTest {
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", () -> {
             managerCustomerPage.firstNameButton();
             managerCustomerPage.firstNameButton();
-            System.out.println(managerCustomerPage.textFirstName());
+            String message = managerCustomerPage.textFirstName();
             assertSoftly(
                     softAssertions -> softAssertions
-                            .assertThat(managerCustomerPage.textFirstName())
+                            .assertThat(message)
                             .withFailMessage("Ошибка при сортировке данных ")
                             .isEqualTo("Albus"));
         });
@@ -35,9 +35,10 @@ public class SortingClientsByNameTests extends BaseTest {
         ManagerCustomerPage managerCustomerPage = new ManagerCustomerPage(driver);
         Allure.step("Шаг 1. Нажать кнопку Customers", managerCustomerPage::customerButton);
         Allure.step("Шаг 2:  Нажать на кнопку сортировки First Name два раза", managerCustomerPage::firstNameButton);
+        String message = managerCustomerPage.textFirstName();
         assertSoftly(
                 softAssertions -> softAssertions
-                        .assertThat(managerCustomerPage.textFirstName())
+                        .assertThat(message)
                         .withFailMessage("Ошибка при сортировке данных ")
                         .isEqualTo("Ron"));
     }
